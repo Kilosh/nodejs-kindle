@@ -4,7 +4,6 @@ var fs = require('fs');
 var dateFormat = require('dateformat');
 var numeral = require('numeral');
 
-
 numeral.register('locale', 'de', {
     delimiters: {
         thousands: '.',
