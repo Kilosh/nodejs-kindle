@@ -5,6 +5,7 @@ var dateFormat = require('dateformat');
 var numeral = require('numeral');
 var Forecast = require('forecast');
 var Feed = require('rss-to-json');
+var svg2png = require("svg2png");
 
 
 var news;
@@ -97,7 +98,9 @@ function createSVG(){
   var file = fs.readFileSync("./template.svg");
   var createdFile = file.toString();
   var formattedDate =  formatDate();
+  var formattedTimeStamp =  dateFormat(new Date(), "dd.mm.yyyy HH:MM:ss");
   createdFile = createdFile.replace('#TODAY',formattedDate);
+  createdFile = createdFile.replace('#TIMESTAMP',formattedTimeStamp);
   createdFile = createdFile.replace('#DAX',formatedStockPriceString(dax));
   createdFile = createdFile.replace('#TECDAX',formatedStockPriceString(tecdax));
   createdFile = createdFile.replace('#MDAX',formatedStockPriceString(mdax));
@@ -117,6 +120,10 @@ function createSVG(){
   if (err) throw err;
   console.log('It\'s saved!');
 });
+
+svg2png(createdFile)
+    .then(buffer => fs.writeFile("dest.png", buffer))
+    .catch(e => console.error(e));
 }
 
 function formatedStockPriceString(stock){
