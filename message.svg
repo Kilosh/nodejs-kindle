@@ -17,7 +17,7 @@
   <g font-family="DejaVu Sans" id="weather">
    <text font-size="35px" y="52.25606" x="180.03906" text-anchor="middle" id="svg_2">Freitag, 23.12.2016</text>
    <text font-size="35px" y="121.70689" x="446.26932" text-anchor="middle" id="svg_3">Maximum:</text>
-   <text font-size="100px" y="209.20592" x="526.72095" text-anchor="end" id="svg_6">2,6</text>
+   <text font-size="100px" y="209.20592" x="526.72095" text-anchor="end" id="svg_6">2,7</text>
    <text font-size="64px" y="182.48717" x="548.30981" text-anchor="middle" id="svg_7">°C</text>
    <text font-size="35px" y="275.13895" x="440.80057" text-anchor="middle" id="svg_8">Minimum:</text>
    <text font-size="100px" y="359.8533" x="526.23267" text-anchor="end" id="svg_9">-3,5</text>
@@ -35,8 +35,8 @@
   <text font-weight="normal" xml:space="preserve" text-anchor="start" font-family="null" font-size="17" id="svg_15" y="529" x="170" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="null" fill="black">11.449,93 (-0,05%)</text>
   <text id="svg_16" font-weight="normal" xml:space="preserve" text-anchor="start" font-family="null" font-size="17" y="579" x="170" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="null" fill="black">1.788,10 (+0,53%)</text>
   <text id="svg_17" font-weight="normal" xml:space="preserve" text-anchor="start" font-family="null" font-size="17" y="636" x="170" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="null" fill="black">22.088,74 (+0,18%)</text>
-  <text id="svg_18" font-weight="normal" xml:space="preserve" text-anchor="start" font-family="null" font-size="17" y="692" x="170" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="null" fill="black">1,05 (+0,12%)</text>
-  <text id="svg_19" font-weight="normal" xml:space="preserve" text-anchor="start" font-family="null" font-size="17" y="751" x="170" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="null" fill="black">1.134,40 (+0,33%)</text>
+  <text id="svg_18" font-weight="normal" xml:space="preserve" text-anchor="start" font-family="null" font-size="17" y="692" x="170" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="null" fill="black">1,05 (+0,13%)</text>
+  <text id="svg_19" font-weight="normal" xml:space="preserve" text-anchor="start" font-family="null" font-size="17" y="751" x="170" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="null" fill="black">1.134,00 (+0,29%)</text>
 
 
   <foreignObject width="240" height="70" font-weight="normal" xml:space="preserve" text-anchor="start" font-family="null" font-size="17" y="511" x="350" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="null" fill="black">
@@ -47,12 +47,8 @@
   <p xmlns="http://www.w3.org/1999/xhtml">Dickens-Zitat: Griechenland stichelt mit Weihnachtskarte gegen Geldgeber</p>
   </foreignObject>
 
-  <foreignObject width="240" height="70" font-weight="normal" xml:space="preserve" text-anchor="start" font-family="null" font-size="17" y="631" x="350" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="null" fill="black">
+  <foreignObject width="240" height="70" font-weight="normal" xml:space="preserve" text-anchor="start" font-family="null" font-size="17" y="651" x="350" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="null" fill="black">
   <p xmlns="http://www.w3.org/1999/xhtml">VfL Wolfsburg: Julian Draxler wechselt zu Paris St. Germain</p>
-  </foreignObject>
-
-  <foreignObject width="240" height="70" font-weight="normal" xml:space="preserve" text-anchor="start" font-family="null" font-size="17" y="691" x="350" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="null" fill="black">
-  <p xmlns="http://www.w3.org/1999/xhtml">Tengelmann-CEO Haub: "Gabriel ist mit uns durchs Feuer gegangen"</p>
   </foreignObject>
 
  </g>

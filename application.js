@@ -110,7 +110,6 @@ function createSVG(){
   createdFile = createdFile.replace('#NEWS0',news[0].title);
   createdFile = createdFile.replace('#NEWS1',news[1].title);
   createdFile = createdFile.replace('#NEWS2',news[2].title);
-  createdFile = createdFile.replace('#NEWS3',news[3].title);
 
   console.log(news[2].title);
 

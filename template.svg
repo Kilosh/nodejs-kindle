@@ -47,12 +47,8 @@
   <p xmlns="http://www.w3.org/1999/xhtml">#NEWS1</p>
   </foreignObject>
 
-  <foreignObject width="240" height="70" font-weight="normal" xml:space="preserve" text-anchor="start" font-family="null" font-size="17" y="631" x="350" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="null" fill="black">
+  <foreignObject width="240" height="70" font-weight="normal" xml:space="preserve" text-anchor="start" font-family="null" font-size="17" y="651" x="350" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="null" fill="black">
   <p xmlns="http://www.w3.org/1999/xhtml">#NEWS2</p>
-  </foreignObject>
-
-  <foreignObject width="240" height="70" font-weight="normal" xml:space="preserve" text-anchor="start" font-family="null" font-size="17" y="691" x="350" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="null" fill="black">
-  <p xmlns="http://www.w3.org/1999/xhtml">#NEWS3</p>
   </foreignObject>
 
  </g>
