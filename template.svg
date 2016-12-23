@@ -1,6 +1,6 @@
 <svg width="600" height="800" xmlns="http://www.w3.org/2000/svg">
  <g>
-  <g id="svg_22" transform="scale(3.25) translate(5.055 20.166)"><image href="3.svg" /></g>
+  <g id="svg_22" transform="scale(3.25) translate(5.055 20.166)"><image href="icons/#WEATHER_ICON.svg" /></g>
   <title>Weather</title>
   <g font-family="DejaVu Sans" id="weather">
    <text font-size="35px" y="52.25606" x="180.03906" text-anchor="middle" id="svg_2">#TODAY</text>
@@ -10,6 +10,7 @@
    <text font-size="35px" y="275.13895" x="440.80057" text-anchor="middle" id="svg_8">Minimum:</text>
    <text font-size="100px" y="359.8533" x="526.23267" text-anchor="end" id="svg_9">#MINIMUM</text>
    <text font-size="64px" y="333.13455" x="548.30981" text-anchor="middle" id="svg_10">°C</text>
+   <text font-size="20px" y="400" x="20" text-anchor="start" id="svg_2">#WEATHER_SUMMARY</text>
   </g>
   <text fill="black" font-size="32px" y="465.16922" x="102.92969" text-anchor="middle" id="svg_4">Börse:</text>
   <text fill="black" font-size="32px" y="465.16922" x="452.92969" text-anchor="middle" id="svg_4">Nachrichten:</text>

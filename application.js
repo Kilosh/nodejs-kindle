@@ -3,6 +3,20 @@ var https = require('https');
 var fs = require('fs');
 var dateFormat = require('dateformat');
 var numeral = require('numeral');
+var Forecast = require('forecast');
+
+// Initialize
+var forecast = new Forecast({
+  service: 'darksky',
+  key: '3e71b627ce9d2e4f00040eac1db9833a',
+  units: 'celcius',
+  lang: 'de',
+  cache: true,      // Cache API requests
+  ttl: {            // How long to cache requests. Uses syntax from moment.js: http://momentjs.com/docs/#/durations/creating/
+    minutes: 15,
+    seconds: 00
+  }
+});
 
 numeral.register('locale', 'de', {
     delimiters: {
@@ -22,6 +36,14 @@ numeral.register('locale', 'de', {
 numeral.locale('de')
 
 
+var weatherMunich;
+forecast.get([48.1738,11.5858], function(err, weather) {
+  if(err) return console.dir(err);
+  weatherMunich = weather.daily.data[0];
+  console.log(weatherMunich);
+  getStockData()
+});
+
 options = {
   host: 'query.yahooapis.com',
   path: '/v1/public/yql?q=select%20*%20from%20yahoo.finance.quote%20where%20symbol%20in%20(%22%5EGDAXI%22%2C%22%5ETECDAX%22%2C%22%5EMDAXI%22%2C%22EURUSD%3DX%22%2C%22GC%3DF%22)&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys'
@@ -33,35 +55,36 @@ var mdax;
 var eur;
 var gold;
 
-https.get(options, function (response){
-	response.setEncoding('utf8')
-  let rawData = '';
-  response.on('data', (chunk) => rawData += chunk);
-  response.on('end', () => {
-    try {
-      let parsedData = JSON.parse(rawData);
-      dax = parsedData.query.results.quote[0];
-      tecdax = parsedData.query.results.quote[1];
-      mdax = parsedData.query.results.quote[2];
-      eur = parsedData.query.results.quote[3];
-      gold = parsedData.query.results.quote[4];
+function getStockData(){
+  https.get(options, function (response){
+  	response.setEncoding('utf8')
+    let rawData = '';
+    response.on('data', (chunk) => rawData += chunk);
+    response.on('end', () => {
+      try {
+        let parsedData = JSON.parse(rawData);
+        dax = parsedData.query.results.quote[0];
+        tecdax = parsedData.query.results.quote[1];
+        mdax = parsedData.query.results.quote[2];
+        eur = parsedData.query.results.quote[3];
+        gold = parsedData.query.results.quote[4];
 
-      console.log(parsedData.query.results.quote);
-      createSVG()
-    } catch (e) {
-      console.log(e.message);
-    }
+        console.log(parsedData.query.results.quote);
+        createSVG()
+      } catch (e) {
+        console.log(e.message);
+      }
+    });
+  	response.on('err', function (data){
+      console.log("EROOR")
+  		console.log(err.toString())
+  	})
   });
-	response.on('err', function (data){
-    console.log("EROOR")
-		console.log(err.toString())
-	})
-});
-
+}
 
 
 function createSVG(){
-  var file = fs.readFileSync("./icons/template.svg");
+  var file = fs.readFileSync("./template.svg");
   var createdFile = file.toString();
   var formattedDate =  formatDate();
   createdFile = createdFile.replace('#TODAY',formattedDate);
@@ -70,6 +93,11 @@ function createSVG(){
   createdFile = createdFile.replace('#MDAX',formatedStockPriceString(mdax));
   createdFile = createdFile.replace('#EUR',formatedStockPriceString(eur));
   createdFile = createdFile.replace('#GOLD',formatedStockPriceString(gold));
+  createdFile = createdFile.replace('#WEATHER_SUMMARY',weatherMunich.summary);
+  createdFile = createdFile.replace('#MAXIMUM',numeral(weatherMunich.temperatureMax).format('0,0.0'));
+  createdFile = createdFile.replace('#MINIMUM',numeral(weatherMunich.temperatureMin).format('0,0.0'));
+  createdFile = createdFile.replace('#WEATHER_ICON',weatherMunich.icon);
+
 
 
   fs.writeFile('message.svg', createdFile.toString(), (err) => {
