@@ -4,6 +4,16 @@ var fs = require('fs');
 var dateFormat = require('dateformat');
 var numeral = require('numeral');
 var Forecast = require('forecast');
+var Feed = require('rss-to-json');
+
+
+var news;
+function getNews(){
+Feed.load('http://www.spiegel.de/schlagzeilen/tops/index.rss', function(err, rss){
+   news = rss.items;
+   getStockData();
+});
+}
 
 // Initialize
 var forecast = new Forecast({
@@ -41,7 +51,7 @@ forecast.get([48.1738,11.5858], function(err, weather) {
   if(err) return console.dir(err);
   weatherMunich = weather.daily.data[0];
   console.log(weatherMunich);
-  getStockData()
+  getNews();
 });
 
 options = {
@@ -97,8 +107,12 @@ function createSVG(){
   createdFile = createdFile.replace('#MAXIMUM',numeral(weatherMunich.temperatureMax).format('0,0.0'));
   createdFile = createdFile.replace('#MINIMUM',numeral(weatherMunich.temperatureMin).format('0,0.0'));
   createdFile = createdFile.replace('#WEATHER_ICON',weatherMunich.icon);
+  createdFile = createdFile.replace('#NEWS0',news[0].title);
+  createdFile = createdFile.replace('#NEWS1',news[1].title);
+  createdFile = createdFile.replace('#NEWS2',news[2].title);
+  createdFile = createdFile.replace('#NEWS3',news[3].title);
 
-
+  console.log(news[2].title);
 
   fs.writeFile('message.svg', createdFile.toString(), (err) => {
   if (err) throw err;
