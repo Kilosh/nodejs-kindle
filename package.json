@@ -1,0 +1,25 @@
+{
+  "name": "project_kindle",
+  "version": "1.0.0",
+  "description": "Generating a PNG file which is than transfered to a kindle",
+  "main": "application.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "kindle",
+    "nodejs"
+  ],
+  "author": "Kilian Wischer",
+  "license": "ISC",
+  "dependencies": {
+    "dateformat": "^2.0.0",
+    "forecast": "^0.3.2",
+    "fs": "0.0.1-security",
+    "https": "^1.0.0",
+    "numeral": "^2.0.4",
+    "rss-to-json": "^1.0.2",
+    "svg2png": "^4.1.1",
+    "yql": "^1.0.2"
+  }
+}
