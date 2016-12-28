@@ -6,6 +6,34 @@ var numeral = require('numeral');
 var Forecast = require('forecast');
 var Feed = require('rss-to-json');
 var svg2png = require("svg2png");
+var http = require('http');
+var url = require('url');
+var path =  require('path');
+
+
+var server = http.createServer(function (request, response) {
+	if (request.method != 'GET') {
+        return response.end('send me a GET\n');
+        response.end();
+    }
+  var requestUrl = url.parse(request.url, true);
+  if (requestUrl.pathname == '/test') {
+     response.writeHead(200, {'Content-Type': 'image/png'});
+     var filePath = path.join(__dirname, 'dest.png');
+     var fileStream = fs.createReadStream(filePath);
+     console.log("klappt3");
+
+     console.log(fileStream.path)
+     fileStream.pipe(response);
+  }
+  else {
+    console.log(requestUrl+ 'unknown path');
+    response.end();
+  }
+  return;
+});
+
+server.listen(process.argv[2]);
 
 
 var news;
@@ -48,12 +76,14 @@ numeral.locale('de')
 
 
 var weatherMunich;
-forecast.get([48.1738,11.5858], function(err, weather) {
-  if(err) return console.dir(err);
-  weatherMunich = weather.daily.data[0];
-  console.log(weatherMunich);
-  getNews();
-});
+function getWeatherInformation(){
+  forecast.get([48.1738,11.5858], function(err, weather) {
+    if(err) return console.dir(err);
+    weatherMunich = weather.daily.data[0];
+    console.log(weatherMunich);
+    getNews();
+  });
+}
 
 options = {
   host: 'query.yahooapis.com',
