@@ -17,14 +17,12 @@ var server = http.createServer(function (request, response) {
         response.end();
     }
   var requestUrl = url.parse(request.url, true);
-  if (requestUrl.pathname == '/test') {
-     response.writeHead(200, {'Content-Type': 'image/png'});
-     var filePath = path.join(__dirname, 'dest.png');
-     var fileStream = fs.createReadStream(filePath);
-     console.log("klappt3");
-
-     console.log(fileStream.path)
-     fileStream.pipe(response);
+  else if (requestUrl.pathname == '/getPNG') {
+    svg2png(fs.readFileSync("./message.svg"))
+        .then(buffer => {
+          response.write(buffer);
+          response.end();
+        }).catch(e => console.error(e));
   }
   else {
     console.log(requestUrl+ 'unknown path');
