@@ -145,7 +145,6 @@ function formatedStockPriceString(stock){
   var difference = Number(stock.Change)
   var stockPriceT0=Number(stockprice+difference);
   var changeProz = difference/stockPriceT0
-
   var formattedStockPrice = numeral(stockprice).format('0,0.00');
   var formatedChangeProz = numeral(changeProz).format('+0.00%');
   return formattedStockPrice+ " ("+formatedChangeProz+")";

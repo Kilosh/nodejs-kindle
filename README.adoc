@@ -1,0 +1,9 @@
+= Generating a dynamic PNG and displaying it on a Kindle E-reader
+
+Small hobby project based on the basic concept from https://github.com/pjimenezmateo/kindle-wallpaper.
+I wanted to learn:
+* how to hack the kindle e-reader
+* training my nodejs skills
+* deploying nodejs application to amazon cloud
+
+The nodejs application offers a GET-method to retrieve a "Status" PNG which than can be displayed on the kindle e-Reader.
