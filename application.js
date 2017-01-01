@@ -8,31 +8,31 @@ var Feed = require('rss-to-json');
 var svg2png = require("svg2png");
 var http = require('http');
 var url = require('url');
-var path =  require('path');
+var path = require('path');
 
 
 var server = http.createServer(function (request, response) {
-	if (request.method != 'GET') {
-        return response.end('send me a GET\n');
-        response.end();
-    }
+  if (request.method != 'GET') {
+    return response.end('send me a GET\n');
+    response.end();
+  }
   var requestUrl = url.parse(request.url, true);
   if (requestUrl.pathname == '/getPNG') {
     getNews(news => {
       getStockData((error, stockData) => {
         getWeatherInformation((error, weather) => {
-          svg2png(createSVG(stockData, weather,news))
-              .then(buffer => {
-                response.write(buffer);
-                response.end();
-              }).catch(e => console.error(e));
+          svg2png(createSVG(stockData, weather, news))
+            .then(buffer => {
+              response.write(buffer);
+              response.end();
+            }).catch(e => console.error(e));
         });
       });
     });
 
   }
   else {
-    console.log(requestUrl+ 'unknown path');
+    console.log(requestUrl + 'unknown path');
     response.end();
   }
   return;
@@ -40,12 +40,12 @@ var server = http.createServer(function (request, response) {
 
 server.listen(process.argv[2]);
 
-function getNews(callback){
-  Feed.load('http://www.spiegel.de/schlagzeilen/tops/index.rss', function(err, rss){
-     var news = rss.items;
-     console.log("hier)");
-     callback(news);
-     });
+function getNews(callback) {
+  Feed.load('http://www.spiegel.de/schlagzeilen/tops/index.rss', function (err, rss) {
+    var news = rss.items;
+    console.log("hier)");
+    callback(news);
+  });
 }
 
 // Initialize
@@ -62,25 +62,25 @@ var forecast = new Forecast({
 });
 
 numeral.register('locale', 'de', {
-    delimiters: {
-        thousands: '.',
-        decimal: ','
-    },
-    abbreviations: {
-        thousand: 'k',
-        million: 'm',
-        billion: 'mrd',
-        trillion: 't'
-    },
-    currency: {
-        symbol: '€'
-    }
+  delimiters: {
+    thousands: '.',
+    decimal: ','
+  },
+  abbreviations: {
+    thousand: 'k',
+    million: 'm',
+    billion: 'mrd',
+    trillion: 't'
+  },
+  currency: {
+    symbol: '€'
+  }
 });
 numeral.locale('de')
 
-function getWeatherInformation(callback){
-  forecast.get([48.1738,11.5858], function(err, weather) {
-    if(err) return callback(err);
+function getWeatherInformation(callback) {
+  forecast.get([48.1738, 11.5858], function (err, weather) {
+    if (err) return callback(err);
     var weatherMunich = weather.daily.data[0];
     callback(null, weatherMunich);
   });
@@ -91,10 +91,10 @@ options = {
   path: '/v1/public/yql?q=select%20*%20from%20yahoo.finance.quote%20where%20symbol%20in%20(%22%5EGDAXI%22%2C%22%5ETECDAX%22%2C%22%5EMDAXI%22%2C%22EURUSD%3DX%22%2C%22GC%3DF%22)&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys'
 }
 
-function getStockData(callback){
+function getStockData(callback) {
   var stockData = {};
-  https.get(options, function (response){
-  	response.setEncoding('utf8')
+  https.get(options, function (response) {
+    response.setEncoding('utf8')
     let rawData = '';
     response.on('data', (chunk) => rawData += chunk);
     response.on('end', () => {
@@ -111,47 +111,47 @@ function getStockData(callback){
         callback(e, stockData);
       }
     });
-  	response.on('err', function (e){
+    response.on('err', function (e) {
       callback(e, stockData);
-  	})
+    })
   });
 }
 
 
-function createSVG(stockData, weatherMunich, news){
+function createSVG(stockData, weatherMunich, news) {
   var file = fs.readFileSync("./template.svg");
   var createdFile = file.toString();
-  var formattedDate =  formatDate();
-  var formattedTimeStamp =  dateFormat(new Date(), "dd.mm.yyyy HH:MM:ss");
-  createdFile = createdFile.replace('#TODAY',formattedDate);
-  createdFile = createdFile.replace('#TIMESTAMP',formattedTimeStamp);
-  createdFile = createdFile.replace('#DAX',formatedStockPriceString(stockData.dax));
-  createdFile = createdFile.replace('#TECDAX',formatedStockPriceString(stockData.tecdax));
-  createdFile = createdFile.replace('#MDAX',formatedStockPriceString(stockData.mdax));
-  createdFile = createdFile.replace('#EUR',formatedStockPriceString(stockData.eur));
-  createdFile = createdFile.replace('#GOLD',formatedStockPriceString(stockData.gold));
-  createdFile = createdFile.replace('#WEATHER_SUMMARY',weatherMunich.summary);
-  createdFile = createdFile.replace('#MAXIMUM',numeral(weatherMunich.temperatureMax).format('0,0.0'));
-  createdFile = createdFile.replace('#MINIMUM',numeral(weatherMunich.temperatureMin).format('0,0.0'));
-  createdFile = createdFile.replace('#WEATHER_ICON',weatherMunich.icon);
-  createdFile = createdFile.replace('#NEWS0',news[0].title);
-  createdFile = createdFile.replace('#NEWS1',news[1].title);
-  createdFile = createdFile.replace('#NEWS2',news[2].title);
+  var formattedDate = formatDate();
+  var formattedTimeStamp = dateFormat(new Date(), "dd.mm.yyyy HH:MM:ss");
+  createdFile = createdFile.replace('#TODAY', formattedDate);
+  createdFile = createdFile.replace('#TIMESTAMP', formattedTimeStamp);
+  createdFile = createdFile.replace('#DAX', formatedStockPriceString(stockData.dax));
+  createdFile = createdFile.replace('#TECDAX', formatedStockPriceString(stockData.tecdax));
+  createdFile = createdFile.replace('#MDAX', formatedStockPriceString(stockData.mdax));
+  createdFile = createdFile.replace('#EUR', formatedStockPriceString(stockData.eur));
+  createdFile = createdFile.replace('#GOLD', formatedStockPriceString(stockData.gold));
+  createdFile = createdFile.replace('#WEATHER_SUMMARY', weatherMunich.summary);
+  createdFile = createdFile.replace('#MAXIMUM', numeral(weatherMunich.temperatureMax).format('0,0.0'));
+  createdFile = createdFile.replace('#MINIMUM', numeral(weatherMunich.temperatureMin).format('0,0.0'));
+  createdFile = createdFile.replace('#WEATHER_ICON', weatherMunich.icon);
+  createdFile = createdFile.replace('#NEWS0', news[0].title);
+  createdFile = createdFile.replace('#NEWS1', news[1].title);
+  createdFile = createdFile.replace('#NEWS2', news[2].title);
   return createdFile;
 }
 
-function formatedStockPriceString(stock){
+function formatedStockPriceString(stock) {
   var stockprice = Number(stock.LastTradePriceOnly);
   var difference = Number(stock.Change)
-  var stockPriceT0=Number(stockprice+difference);
-  var changeProz = difference/stockPriceT0
+  var stockPriceT0 = Number(stockprice + difference);
+  var changeProz = difference / stockPriceT0
   var formattedStockPrice = numeral(stockprice).format('0,0.00');
   var formatedChangeProz = numeral(changeProz).format('+0.00%');
-  return formattedStockPrice+ " ("+formatedChangeProz+")";
+  return formattedStockPrice + " (" + formatedChangeProz + ")";
 }
 
 function formatDate() {
-  var formattedDate =  dateFormat(new Date(), "dddd, dd.mm.yyyy");
+  var formattedDate = dateFormat(new Date(), "dddd, dd.mm.yyyy");
   formattedDate = formattedDate.replace('Monday', 'Montag')
   formattedDate = formattedDate.replace('Tuesday', 'Dienstag')
   formattedDate = formattedDate.replace('Wednesday', 'Mittwoch')
