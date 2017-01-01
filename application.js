@@ -51,7 +51,7 @@ function getNews(callback){
 // Initialize
 var forecast = new Forecast({
   service: 'darksky',
-  key: '3e71b627ce9d2e4f00040eac1db9833a',
+  key: 'XXX', //get your api key from https://darksky.net/dev/
   units: 'celcius',
   lang: 'de',
   cache: true,      // Cache API requests
