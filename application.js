@@ -1,4 +1,3 @@
-var YQL = require('yql');
 var https = require('https');
 var fs = require('fs');
 var dateFormat = require('dateformat');
@@ -9,6 +8,7 @@ var svg2png = require("svg2png");
 var http = require('http');
 var url = require('url');
 var path = require('path');
+var config = require('./config')
 
 
 var server = http.createServer(function (request, response) {
@@ -38,7 +38,7 @@ var server = http.createServer(function (request, response) {
   return;
 });
 
-server.listen(process.argv[2]);
+server.listen(config.server.port);
 
 function getNews(callback) {
   Feed.load('http://www.spiegel.de/schlagzeilen/tops/index.rss', function (err, rss) {
@@ -51,7 +51,7 @@ function getNews(callback) {
 // Initialize
 var forecast = new Forecast({
   service: 'darksky',
-  key: 'XXX', //get your api key from https://darksky.net/dev/
+  key: config.forecastKey, //get your api key from https://darksky.net/dev/ and place it in the config.js file
   units: 'celcius',
   lang: 'de',
   cache: true,      // Cache API requests
