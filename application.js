@@ -32,7 +32,7 @@ var server = http.createServer(function (request, response) {
 
   }
   else {
-    console.log(requestUrl + 'unknown path');
+    console.log(requestUrl.pathname + 'unknown path');
     response.end();
   }
   return;
@@ -43,7 +43,6 @@ server.listen(config.server.port);
 function getNews(callback) {
   Feed.load('http://www.spiegel.de/schlagzeilen/tops/index.rss', function (err, rss) {
     var news = rss.items;
-    console.log("hier)");
     callback(news);
   });
 }
