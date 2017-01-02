@@ -9,4 +9,4 @@ I wanted to learn:
 
 The nodejs application offers a GET-method to retrieve a "Status" SVG which than can be displayed on the kindle e-Reader. The kindle e Reader only can display PNGs. Therefore the SVG must be converted to PNG. Currently struggling with the conversion to PNG within a docker container. Therefore currently only the SVG is the output of the service call.
 
-image::status.svg[]
+image::status.png[]
