@@ -86,14 +86,14 @@ function getWeatherInformation(callback) {
   });
 }
 
-options = {
+yahooStockData = {
   host: 'query.yahooapis.com',
   path: '/v1/public/yql?q=select%20*%20from%20yahoo.finance.quote%20where%20symbol%20in%20(%22%5EGDAXI%22%2C%22%5ETECDAX%22%2C%22%5EMDAXI%22%2C%22EURUSD%3DX%22%2C%22GC%3DF%22)&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys'
 }
 
 function getStockData(callback) {
   var stockData = {};
-  https.get(options, function (response) {
+  https.get(yahooStockData, function (response) {
     response.setEncoding('utf8')
     let rawData = '';
     response.on('data', (chunk) => rawData += chunk);
