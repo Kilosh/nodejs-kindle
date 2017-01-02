@@ -4,7 +4,6 @@ var dateFormat = require('dateformat');
 var numeral = require('numeral');
 var Forecast = require('forecast');
 var Feed = require('rss-to-json');
-var svg2png = require("svg2png");
 var http = require('http');
 var url = require('url');
 var path = require('path');
@@ -21,11 +20,13 @@ var server = http.createServer(function (request, response) {
     getNews(news => {
       getStockData((error, stockData) => {
         getWeatherInformation((error, weather) => {
-          svg2png(createSVG(stockData, weather, news))
-            .then(buffer => {
-              response.write(buffer);
-              response.end();
-            }).catch(e => console.error(e));
+          var body = createSVG(stockData, weather, news);
+          response.writeHead(200, {
+            'Content-Length': Buffer.byteLength(body),
+            'Content-Type': 'image/svg+xml'
+          });
+          response.write(body);
+          response.end();
         });
       });
     });
