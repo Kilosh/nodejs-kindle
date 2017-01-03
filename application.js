@@ -30,7 +30,15 @@ var server = http.createServer(function (request, response) {
         });
       });
     });
-
+  }
+  else if(requestUrl.pathname == '/ping') {
+        var pingResponseString = dateFormat(new Date(), "dd.mm.yyyy HH:MM:ss");
+        response.writeHead(200, {
+           'Content-Length': Buffer.byteLength(pingResponseString),
+            'Content-Type': 'text/plain'
+          });
+          response.write(pingResponseString);
+          response.end();
   }
   else {
     console.log(requestUrl.pathname + 'unknown path');
