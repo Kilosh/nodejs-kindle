@@ -4,9 +4,6 @@ var dateFormat = require('dateformat');
 var numeral = require('numeral');
 var Forecast = require('forecast');
 var Feed = require('rss-to-json');
-var http = require('http');
-var url = require('url');
-var path = require('path');
 var config = require('./config')
 var express = require('express')
 
