@@ -8,46 +8,35 @@ var http = require('http');
 var url = require('url');
 var path = require('path');
 var config = require('./config')
+var express = require('express')
 
+var app = express()
 
-var server = http.createServer(function (request, response) {
-  if (request.method != 'GET') {
-    return response.end('send me a GET\n');
-    response.end();
-  }
-  var requestUrl = url.parse(request.url, true);
-  if (requestUrl.pathname == '/getPNG') {
-    getNews(news => {
-      getStockData((error, stockData) => {
-        getWeatherInformation((error, weather) => {
-          var body = createSVG(stockData, weather, news);
-          response.writeHead(200, {
-            'Content-Length': Buffer.byteLength(body),
-            'Content-Type': 'image/svg+xml'
-          });
-          response.write(body);
-          response.end();
-        });
+app.get('/getPNG', function (req, res) {
+  getNews(news => {
+    getStockData((error, stockData) => {
+      getWeatherInformation((error, weather) => {
+        var body = createSVG(stockData, weather, news);
+        res.set('Content-Length', Buffer.byteLength(body));
+        res.set('Content-Type', 'image/svg+xml');
+        res.send(body);
+        res.end();
       });
     });
-  }
-  else if(requestUrl.pathname == '/ping') {
-        var pingResponseString = dateFormat(new Date(), "dd.mm.yyyy HH:MM:ss");
-        response.writeHead(200, {
-           'Content-Length': Buffer.byteLength(pingResponseString),
-            'Content-Type': 'text/plain'
-          });
-          response.write(pingResponseString);
-          response.end();
-  }
-  else {
-    console.log(requestUrl.pathname + 'unknown path');
-    response.end();
-  }
-  return;
+  });
 });
 
-server.listen(config.server.port);
+app.get('/ping', function (req, res) {
+  var pingResponseString = dateFormat(new Date(), "dd.mm.yyyy HH:MM:ss");
+  res.set('Content-Length', Buffer.byteLength(pingResponseString));
+  res.set('Content-Type', 'text/plain');
+  res.send(pingResponseString);
+  res.end();
+});
+
+app.listen(config.server.port, function () {
+  console.log('Example app listening on port '+config.server.port+'!');
+});
 
 function getNews(callback) {
   Feed.load('http://www.spiegel.de/schlagzeilen/tops/index.rss', function (err, rss) {
